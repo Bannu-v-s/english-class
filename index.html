@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>English, Let's Get to Know Each Other! — Student Workbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Atkinson+Hyperlegible:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9F0FA; --page:#FFFFFF; --ink:#1C2541; --muted:#59668A; --line:#D3DDEE; --soft:#F3F7FD;
+  --s1:#F07C14; --s2:#2F6FED; --s3:#169C5B; --s4:#E2445F; --s5:#7653E8;
+  --s1-t:#FFF1E3; --s2-t:#E7EFFF; --s3-t:#E2F6EC; --s4-t:#FDE8EC; --s5-t:#EFEAFF;
+  --focus:#2F6FED;
+  --display:"Baloo 2","Gowun Dodum",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Gowun Dodum",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121829; --page:#1B2338; --ink:#EEF2FB; --muted:#A6B1CF; --line:#2E3A59; --soft:#222C45;
+    --s1:#FF9A3D; --s2:#6E9BFF; --s3:#3CC983; --s4:#FF6B85; --s5:#A48BFF;
+    --s1-t:#3A2A1B; --s2-t:#1D2B4D; --s3-t:#173628; --s4-t:#3D1D26; --s5-t:#2A2250;
+    --focus:#6E9BFF;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121829; --page:#1B2338; --ink:#EEF2FB; --muted:#A6B1CF; --line:#2E3A59; --soft:#222C45;
+  --s1:#FF9A3D; --s2:#6E9BFF; --s3:#3CC983; --s4:#FF6B85; --s5:#A48BFF;
+  --s1-t:#3A2A1B; --s2-t:#1D2B4D; --s3-t:#173628; --s4-t:#3D1D26; --s5-t:#2A2250;
+  --focus:#6E9BFF;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+img,svg{max-width:100%}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px}
+
+/* ---------- top bar ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;gap:10px;align-items:center;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+.mode{display:inline-flex;background:var(--page);border:1.5px solid var(--line);border-radius:999px;padding:3px}
+.mode button{border:0;background:none;padding:6px 14px;border-radius:999px;cursor:pointer;font-weight:700;color:var(--muted)}
+.mode button[aria-pressed="true"]{background:var(--ink);color:var(--page)}
+.jump{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
+.jump::-webkit-scrollbar{display:none}
+.jump a{flex:none;text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;padding:6px 12px;border-radius:999px;background:var(--page);border:1.5px solid var(--line)}
+.jump a span{display:inline-block;width:20px;height:20px;line-height:20px;text-align:center;border-radius:50%;color:#fff;font-size:12px;margin-right:6px}
+
+/* ---------- hero ---------- */
+.hero{padding:34px 0 18px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,6vw,58px);line-height:1.02;margin:0 0 12px;letter-spacing:-.5px}
+.hero p.sub{margin:0 0 6px;font-size:19px;color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.facts span{background:var(--page);border:1.5px solid var(--line);border-radius:10px;padding:5px 11px;font-size:14px;font-weight:700}
+.hero-art svg{width:100%;height:auto;display:block}
+
+/* ---------- teacher overview ---------- */
+.panel{background:var(--page);border-radius:22px;padding:26px;margin:18px 0;border:1.5px solid var(--line)}
+.panel h2{font-family:var(--display);font-size:30px;margin:0 0 6px;line-height:1.1}
+.panel h3{font-family:var(--display);font-size:21px;margin:22px 0 8px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:520px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:14px;color:var(--muted);font-weight:700}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.checks label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:6px 8px;border-radius:10px}
+.checks label:hover{background:var(--soft)}
+.checks input{width:20px;height:20px;margin-top:2px;accent-color:var(--s3);flex:none}
+.checks input:checked + span{text-decoration:line-through;color:var(--muted)}
+.tips{counter-reset:t;list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.tips li{background:var(--soft);border-radius:14px;padding:12px 14px 12px 50px;position:relative}
+.tips li::before{counter-increment:t;content:counter(t);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--page);font-weight:700;text-align:center;line-height:26px;font-size:14px}
+.tips b{display:block}
+
+/* ---------- session ---------- */
+.session{background:var(--page);border-radius:26px;margin:26px 0;overflow:hidden;border:1.5px solid var(--line)}
+.s-head{position:relative;padding:24px 26px 22px;background:var(--tint);display:flex;gap:18px;align-items:center}
+.s-head .icon{flex:none;width:76px;height:76px;border-radius:22px;background:var(--page);display:grid;place-items:center;border:2px solid var(--c)}
+.s-head .icon svg{width:52px;height:52px}
+.s-head .num{font-family:var(--display);font-weight:800;color:var(--c);font-size:16px;margin:0}
+.s-head h2{font-family:var(--display);font-weight:800;font-size:clamp(28px,4.4vw,40px);line-height:1.02;margin:0}
+.s-head .time{margin:4px 0 0;color:var(--muted);font-weight:700;font-size:15px}
+.s-head .doc{margin-left:auto;align-self:flex-start;background:var(--c);color:#fff;font-weight:700;font-size:13px;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.s-body{padding:8px 26px 28px}
+.part{margin-top:24px}
+.part > h3{font-family:var(--display);font-size:23px;margin:0 0 4px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.part > h3 small{font-family:var(--body);font-size:15px;color:var(--muted);font-weight:400}
+.hint{color:var(--muted);margin:0 0 12px;font-size:15px}
+.ko{font-family:"Gowun Dodum",var(--body)}
+
+/* speech bubble */
+.bubble{position:relative;background:var(--soft);border-radius:18px;padding:12px 16px;margin:0 0 14px}
+.bubble::after{content:"";position:absolute;left:26px;bottom:-10px;border:10px solid transparent;border-top-color:var(--soft);border-bottom:0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:var(--page);padding:7px 13px;border-radius:999px;cursor:pointer;font-weight:700;font-size:14px}
+.btn:hover{border-color:var(--c,var(--ink))}
+.btn.fill{background:var(--c,var(--ink));border-color:var(--c,var(--ink));color:#fff}
+.say{width:36px;height:36px;padding:0;justify-content:center;flex:none;border-radius:50%}
+.say svg{width:18px;height:18px}
+.say.on{background:var(--c);border-color:var(--c);color:#fff}
+
+/* Flip rows (S1 part 1) */
+.flips{display:grid;gap:10px}
+.flip{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;cursor:pointer;background:var(--page);text-align:left;width:100%}
+.flip:hover{border-color:var(--c)}
+.flip .before{color:var(--muted);font-size:16px}
+.flip .before::before{content:"Before  ";font-weight:700;font-size:12px;color:var(--muted)}
+.flip .after{display:none;font-weight:700;font-size:19px}
+.flip .rule{display:none;margin-top:6px;font-size:13px;font-weight:700;background:var(--tint);color:var(--c);border-radius:999px;padding:3px 10px;width:max-content;max-width:100%}
+.flip[aria-expanded="true"]{border-color:var(--c);background:var(--tint)}
+.flip[aria-expanded="true"] .before{text-decoration:line-through;font-size:14px}
+.flip[aria-expanded="true"] .after,.flip[aria-expanded="true"] .rule{display:block}
+.flip .tap{font-size:13px;font-weight:700;color:var(--c)}
+.flip[aria-expanded="true"] .tap{display:none}
+
+/* fill-in lines */
+.lines{display:grid;gap:12px;margin:0;padding:0;list-style:none;counter-reset:ln}
+.lines > li{border:1.5px solid var(--line);border-radius:16px;padding:12px 14px 12px 54px;position:relative}
+.lines > li::before{counter-increment:ln;content:counter(ln);position:absolute;left:14px;top:12px;width:28px;height:28px;border-radius:50%;background:var(--c);color:#fff;font-weight:700;text-align:center;line-height:28px}
+.lines .lab{font-size:13px;font-weight:700;color:var(--muted);display:block;margin-bottom:2px}
+.tpl{line-height:2.3}
+.tpl .or{color:var(--muted);font-weight:700;margin:0 4px}
+.blank{border:0;border-bottom:2px dashed var(--c);background:var(--tint);border-radius:6px 6px 0 0;padding:2px 8px;min-width:120px;width:var(--w,150px);max-width:100%;font-weight:700}
+.blank:focus{outline:none;border-bottom-style:solid;box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 30%,transparent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{border:1.5px solid var(--line);background:var(--page);border-radius:999px;padding:4px 12px;font-size:14px;cursor:pointer}
+.chip:hover{border-color:var(--c)}
+.chip[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:#fff}
+.chip .ko{font-size:13px;opacity:.75;margin-left:4px}
+.chip[aria-pressed="true"] .ko{opacity:.9}
+
+/* my intro preview */
+.preview{margin-top:16px;border-radius:20px;padding:18px 18px 16px;background:var(--c);color:#fff;position:relative}
+.preview::after{content:"";position:absolute;right:40px;bottom:-12px;border:12px solid transparent;border-top-color:var(--c);border-bottom:0}
+.preview h4{margin:0 0 6px;font-family:var(--display);font-size:20px}
+.preview p{margin:0 0 12px;font-size:19px;font-weight:700;min-height:1.5em}
+.preview p.empty{opacity:.75;font-weight:400;font-size:16px}
+.preview .btn{background:#fff;color:#1C2541;border-color:#fff}
+
+/* stress practice */
+.stress{display:grid;gap:8px}
+.st{display:flex;gap:12px;align-items:center;border:1.5px solid var(--line);border-radius:14px;padding:10px 12px}
+.st .txt{flex:1;font-size:20px}
+.st .txt b{color:var(--c);font-size:1.15em}
+.st .arr{font-size:22px;font-weight:700;color:var(--c)}
+.tip{background:var(--tint);border-radius:14px;padding:12px 14px;margin-top:12px;font-size:15px}
+.tip b{color:var(--c)}
+
+/* question cards (S2) */
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.qcard{border:1.5px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.qcard .qtop{display:flex;gap:10px;align-items:flex-start}
+.qcard .n{font-family:var(--display);font-weight:800;color:var(--c);font-size:26px;line-height:1}
+.qcard .q{font-weight:700;font-size:18px;flex:1;line-height:1.3}
+.qcard .mean{font-size:15px;color:var(--muted)}
+.qcard .mean[hidden]{display:none}
+.qcard .start{background:var(--tint);border-radius:12px;padding:8px 10px;font-size:15px}
+.qcard .start b{font-size:12px;color:var(--c);display:block}
+.qcard .row{display:flex;gap:6px;flex-wrap:wrap}
+.expr{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.expr li{display:flex;gap:10px;align-items:center;border-bottom:1px dashed var(--line);padding:6px 0}
+.expr .k{flex:none;width:148px;font-size:13px;font-weight:700;color:var(--muted)}
+.expr .v{flex:1}
+.pickcount{font-weight:700;color:var(--c)}
+
+/* S3 */
+.qbox{border:1.5px solid var(--line);border-radius:20px;padding:16px;margin-top:14px}
+.qbox h4{margin:0;font-family:var(--display);font-size:21px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;padding:3px;margin:10px 0 6px}
+.seg button{border:0;background:none;padding:5px 14px;border-radius:999px;cursor:pointer;font-weight:700;font-size:14px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--c);color:#fff}
+.ans{display:none}
+.ans.show{display:block}
+.ans .tpl{display:block}
+.example{margin-top:10px;font-size:15px;background:var(--soft);border-radius:12px;padding:10px 12px;color:var(--muted)}
+.example b{color:var(--ink)}
+.myname{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;background:var(--tint);border-radius:16px;padding:14px}
+.myname label{font-weight:700}
+.formula{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0 0}
+.formula span{background:var(--page);border:2px solid var(--c);border-radius:12px;padding:4px 12px;font-weight:700}
+.formula i{font-style:normal;color:var(--c);font-weight:700}
+.bonus{font-size:12px;background:var(--c);color:#fff;border-radius:999px;padding:2px 9px;font-family:var(--body)}
+
+/* S4 */
+.cards2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.rcard{border-radius:20px;padding:18px;border:2px solid var(--c);position:relative}
+.rcard.app{border-style:dashed}
+.rcard h4{margin:0 0 10px;font-family:var(--display);font-size:22px;display:flex;align-items:center;gap:8px}
+.rcard ol,.rcard ul{margin:0;padding-left:22px;display:grid;gap:6px}
+.rcard li b{color:var(--c)}
+.reacts{margin-top:12px;font-size:14px;background:var(--tint);border-radius:12px;padding:8px 10px}
+.fb{display:grid;gap:4px;margin-top:6px}
+.fb label{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:12px;border:1.5px solid var(--line);cursor:pointer}
+.fb input{width:22px;height:22px;accent-color:var(--s4)}
+.hired-zone{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.stamp{font-family:var(--display);font-weight:800;font-size:34px;color:var(--s4);border:5px solid var(--s4);border-radius:14px;padding:2px 18px;transform:rotate(-8deg) scale(0);opacity:0;transition:transform .35s cubic-bezier(.2,1.6,.4,1),opacity .2s;line-height:1.2}
+.stamp.go{transform:rotate(-8deg) scale(1);opacity:1}
+
+/* S5 deck */
+.levels{display:flex;gap:8px;flex-wrap:wrap}
+.lvl{border:2px solid var(--lc);background:var(--page);color:var(--ink);padding:7px 14px;border-radius:14px;cursor:pointer;font-weight:700}
+.lvl[aria-pressed="true"]{background:var(--lc);color:#fff}
+.deck{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;margin-top:16px}
+.cardstage{perspective:1000px;min-height:220px}
+.ccard{position:relative;width:100%;max-width:440px;height:220px;transform-style:preserve-3d;transition:transform .5s ease;margin:0 auto}
+.ccard.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:22px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;justify-content:center;padding:22px;text-align:center}
+.face.back{background:var(--lc);color:#fff;background-image:radial-gradient(circle at 20% 30%,rgba(255,255,255,.18) 0 18px,transparent 19px),radial-gradient(circle at 80% 75%,rgba(255,255,255,.14) 0 30px,transparent 31px);font-family:var(--display);font-size:28px;font-weight:800}
+.face.front{transform:rotateY(180deg);background:var(--page);border:3px solid var(--lc);font-family:var(--display);font-weight:800;font-size:clamp(22px,3.4vw,30px);line-height:1.15;flex-direction:column;gap:10px}
+.face.front small{font-family:var(--body);font-size:13px;font-weight:700;color:var(--lc)}
+.deckctl{display:grid;gap:8px;justify-items:start}
+.left{font-size:14px;color:var(--muted)}
+.helpers{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:6px}
+.helpers div{background:var(--tint);border-radius:14px;padding:10px 12px}
+.helpers b{display:block;font-size:13px;color:var(--c)}
+.allcards{display:none}
+
+/* teacher guide inside sessions */
+.tguide{display:none}
+body[data-mode="teacher"] .tguide{display:block}
+body[data-mode="teacher"] .sguide{display:none}
+body[data-mode="student"] .teacher-only{display:none}
+.goal{background:var(--tint);border-radius:16px;padding:14px 16px;margin-top:18px}
+.goal p{margin:2px 0}
+.goal b{color:var(--c)}
+.steps{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px;position:relative}
+.step{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.step .badge{width:58px;text-align:center}
+.step .badge .sn{display:block;width:42px;height:42px;line-height:42px;margin:0 auto;border-radius:50%;background:var(--c);color:#fff;font-family:var(--display);font-weight:800;font-size:20px}
+.step .badge .mn{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-top:3px}
+.step .box{border:1.5px solid var(--line);border-radius:16px;padding:12px 14px}
+.step h4{margin:0 0 6px;font-size:18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.step ul{margin:0;padding-left:20px}
+.step li{margin:3px 0}
+.say-line{color:var(--c);font-weight:700}
+.ttips{margin-top:16px;border-left:4px solid var(--c);padding:6px 0 6px 14px}
+.ttips h4{margin:0 0 4px;font-family:var(--display);font-size:19px}
+.ttips ul{margin:0;padding-left:20px}
+
+/* floating timer */
+.timer{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--ink);color:var(--page);border-radius:22px;padding:10px 12px 10px 16px;display:none;align-items:center;gap:10px;box-shadow:0 8px 28px rgba(0,0,0,.25)}
+.timer.on{display:flex}
+.timer .tl{font-size:12px;opacity:.75;display:block;max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.timer .tv{font-family:var(--display);font-weight:800;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.timer button{border:0;background:rgba(255,255,255,.14);color:inherit;width:34px;height:34px;border-radius:50%;cursor:pointer;font-weight:700}
+.timer.big{left:0;right:0;top:0;bottom:0;border-radius:0;justify-content:center;flex-direction:column;gap:20px}
+.timer.big .tv{font-size:min(28vw,260px)}
+.timer.big .tl{font-size:22px;max-width:none}
+.timer.done .tv{color:#FFB547}
+
+footer{color:var(--muted);font-size:14px;text-align:center;padding:24px 0 60px}
+
+@media (max-width:720px){
+  body{font-size:16px}
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-art{order:-1;max-width:420px}
+  .s-head{padding:20px 18px;flex-wrap:wrap}
+  .s-head .icon{width:60px;height:60px;border-radius:18px}
+  .s-head .icon svg{width:40px;height:40px}
+  .s-head .doc{margin-left:0}
+  .s-body{padding:6px 16px 22px}
+  .panel{padding:20px 16px}
+  .deck{grid-template-columns:1fr}
+  .expr .k{width:110px}
+  .lines > li{padding-left:48px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+
+/* ---------- print ---------- */
+@media print{
+  :root{--bg:#fff;--page:#fff;--ink:#000;--muted:#444;--line:#999;--soft:#f2f2f2}
+  body{font-size:12pt}
+  .bar,.timer,.say,.seg,.btn,.levels,.deck,.hired-zone,.hero-art{display:none!important}
+  .session{break-before:page;border:0;border-radius:0}
+  .panel{border:0}
+  .flip .after,.flip .rule{display:block!important}
+  .flip .tap{display:none}
+  .ans{display:block!important;margin-top:8px}
+  .ans::before{content:attr(data-label);font-weight:700;font-size:11pt}
+  .blank{background:none;border-bottom:1px solid #000}
+  .allcards{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+  .allcards div{border:2px solid var(--lc);border-radius:10px;padding:10px;min-height:80px;font-weight:700;break-inside:avoid}
+  .preview{background:none;color:#000;border:2px solid #000}
+  .step,.qcard,.qbox,.rcard{break-inside:avoid}
+}
+</style>
+</head>
+<body data-mode="student">
+
+<header class="bar">
+  <div class="wrap">
+    <nav class="jump" aria-label="Sessions">
+      <a href="#s1"><span style="background:var(--s1)">1</span>About Me</a>
+      <a href="#s2"><span style="background:var(--s2)">2</span>Interview Basics</a>
+      <a href="#s3"><span style="background:var(--s3)">3</span>Make My Answer</a>
+      <a href="#s4"><span style="background:var(--s4)">4</span>Can You Hire Me?</a>
+      <a href="#s5"><span style="background:var(--s5)">5</span>Free Talking</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>English, Let's Get to Know Each Other!</h1>
+      <p class="sub">Real English conversation for absolute beginners</p>
+      <p class="sub sguide">Tap, type, and listen. Your answers stay on this device.</p>
+      <div class="facts">
+        <span>Youth Growth Project</span><span>Thu, Oct 22</span><span>2:00–6:00 PM</span><span>Ages 25–39</span><span>15–20 people</span>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 420 300">
+        <rect x="18" y="18" width="210" height="78" rx="26" fill="var(--s1)"/>
+        <path d="M70 94 L60 124 L100 94Z" fill="var(--s1)"/>
+        <text x="123" y="66" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="27" fill="#fff">Hi, I'm Minsu!</text>
+        <rect x="170" y="110" width="232" height="78" rx="26" fill="var(--s2)"/>
+        <path d="M350 186 L362 214 L320 186Z" fill="var(--s2)"/>
+        <text x="286" y="158" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="25" fill="#fff">Nice to meet you!</text>
+        <!-- person left -->
+        <circle cx="78" cy="176" r="30" fill="#F6C59A"/>
+        <path d="M48 170 Q50 138 80 140 Q108 142 108 168 Q96 156 78 158 Q60 158 48 170Z" fill="#2B2F4A"/>
+        <circle cx="70" cy="178" r="3" fill="#2B2F4A"/><circle cx="90" cy="178" r="3" fill="#2B2F4A"/>
+        <path d="M71 190 Q80 197 89 190" stroke="#2B2F4A" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M30 300 Q32 222 78 216 Q124 222 126 300Z" fill="var(--s3)"/>
+        <!-- person right -->
+        <circle cx="330" cy="246" r="28" fill="#E8B07E"/>
+        <path d="M302 244 Q300 212 330 212 Q362 212 358 246 Q356 228 330 228 Q310 228 302 244Z" fill="#5B3A29"/>
+        <circle cx="321" cy="249" r="3" fill="#2B2F4A"/><circle cx="339" cy="249" r="3" fill="#2B2F4A"/>
+        <path d="M322 260 Q330 266 338 260" stroke="#2B2F4A" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M282 300 Q286 280 330 278 Q374 280 378 300Z" fill="var(--s5)"/>
+        <!-- name tag -->
+        <rect x="62" y="240" width="40" height="26" rx="5" fill="#fff" stroke="var(--s1)" stroke-width="3"/>
+        <rect x="69" y="249" width="26" height="4" rx="2" fill="var(--s1)"/>
+        <rect x="69" y="256" width="18" height="3" rx="1.5" fill="var(--line)"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- ============ SESSION 1 ============ -->
+  <section class="session" id="s1" style="--c:var(--s1);--tint:var(--s1-t)">
+    <div class="s-head">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 52 52"><rect x="6" y="12" width="40" height="30" rx="6" fill="none" stroke="var(--s1)" stroke-width="3.5"/><rect x="6" y="12" width="40" height="10" rx="5" fill="var(--s1)"/><rect x="13" y="28" width="26" height="4" rx="2" fill="var(--s1)"/><rect x="13" y="35" width="16" height="3" rx="1.5" fill="var(--s1)" opacity=".5"/><rect x="22" y="5" width="8" height="9" rx="2" fill="var(--s1)"/></svg>
+      </div>
+      <div>
+        <p class="num">Session 1</p>
+        <h2>About Me</h2>
+        <p class="time">3:15–3:35 · 20 min</p>
+      </div>
+      <span class="doc">Worksheet A</span>
+    </div>
+    <div class="s-body">
+      <div class="sguide">
+        <div class="part">
+          <h3>Part 1. Upgrade rules <small class="ko">자연스럽게 바꾸기</small></h3>
+          <p class="hint">Tap each stiff sentence to see a natural version.</p>
+          <div class="flips" id="flips"></div>
+        </div>
+        <div class="part" data-block>
+          <h3>Part 2. Rewrite your introduction</h3>
+          <p class="hint">Fill in the blanks with your own information. Use your draft from Lynn's session.</p>
+          <ol class="lines" id="introLines"></ol>
+          <p class="hint" style="margin-top:12px"><b>Useful upgrade words</b> — tap one to add it to the blank you are typing in.</p>
+          <div class="chips" id="upgradeWords"></div>
+          <div class="preview">
+            <h4>My introduction</h4>
+            <p id="introOut" class="empty">Your sentences will appear here as you type.</p>
+            <button class="btn" type="button" id="introSay">Listen to my introduction</button>
+          </div>
+        </div>
+        <div class="part">
+          <h3>Part 3. Say it well <small class="ko">발음 &amp; 억양</small></h3>
+          <p class="hint">Read aloud. Stress the <b style="color:var(--s1)">big</b> words. Go up ↗ or down ↘ at the end.</p>
+          <div class="stress" id="stress"></div>
+          <div class="tip"><b>Link words together:</b> work at a → "wor-ka-ta" · nice to meet you → "nice-tuh-mee-chu"</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SESSION 2 ============ -->
+  <section class="session" id="s2" style="--c:var(--s2);--tint:var(--s2-t)">
+    <div class="s-head">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 52 52"><rect x="5" y="16" width="42" height="28" rx="6" fill="none" stroke="var(--s2)" stroke-width="3.5"/><path d="M18 16 V11 a3 3 0 0 1 3 -3 h10 a3 3 0 0 1 3 3 V16" fill="none" stroke="var(--s2)" stroke-width="3.5"/><rect x="5" y="26" width="42" height="4" fill="var(--s2)"/><rect x="22" y="24" width="8" height="8" rx="2" fill="var(--s2)"/></svg>
+      </div>
+      <div>
+        <p class="num">Session 2</p>
+        <h2>Job Interview Basics</h2>
+        <p class="time">4:00–4:15 · 15 min</p>
+      </div>
+      <span class="doc">Handout B</span>
+    </div>
+    <div class="s-body">
+      <div class="sguide">
+        <div class="part">
+          <h3>Part 1. The 6 most common questions</h3>
+          <p class="hint">Listen, repeat, and tap <b>뜻</b> to check the meaning.</p>
+          <div class="qgrid" id="qgrid"></div>
+        </div>
+        <div class="part">
+          <h3>Part 2. Useful expressions</h3>
+          <ul class="expr" id="expr"></ul>
+        </div>
+        <div class="part">
+          <h3>Part 3. Strength words <small>pick 2!</small></h3>
+          <p class="hint">Tap your two strengths. <span class="pickcount" id="pickCount">0 / 2 picked</span></p>
+          <div class="chips" id="strengths"></div>
+          <div class="bubble" id="strengthSay" style="margin-top:12px">I'm ___ and ___!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SESSION 3 ============ -->
+  <section class="session" id="s3" style="--c:var(--s3);--tint:var(--s3-t)">
+    <div class="s-head">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 52 52"><rect x="9" y="6" width="30" height="40" rx="5" fill="none" stroke="var(--s3)" stroke-width="3.5"/><rect x="15" y="15" width="18" height="3.5" rx="1.7" fill="var(--s3)"/><rect x="15" y="23" width="14" height="3.5" rx="1.7" fill="var(--s3)" opacity=".5"/><path d="M46 20 L30 40 L26 44 L28 38 L44 18Z" fill="var(--s3)"/></svg>
+      </div>
+      <div>
+        <p class="num">Session 3</p>
+        <h2>Make My Answer</h2>
+        <p class="time">4:15–4:35 · 20 min</p>
+      </div>
+      <span class="doc">Worksheet C</span>
+    </div>
+    <div class="s-body">
+      <div class="sguide" data-block>
+        <div class="part">
+          <div class="myname">
+            <label>Name <input class="blank" data-k="s3-name" style="--w:160px"></label>
+            <label>The job I'm applying for <input class="blank" data-k="s3-job" style="--w:200px"></label>
+          </div>
+          <p class="hint" style="margin-top:14px"><b>Each question has two ways to answer. Choose one.</b> You can mix them, for example a short answer for Q1 and a long answer for Q2.</p>
+          <div class="formula" aria-label="Long answer formula"><span>Answer</span><i>→</i><span>Because…</span><i>→</i><span>For example…</span></div>
+        </div>
+        <div id="s3q"></div>
+        <div class="part">
+          <h3>Before you speak ✔</h3>
+          <ul class="checks" id="s3checks"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SESSION 4 ============ -->
+  <section class="session" id="s4" style="--c:var(--s4);--tint:var(--s4-t)">
+    <div class="s-head">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 52 52"><rect x="4" y="30" width="44" height="5" rx="2.5" fill="var(--s4)"/><rect x="9" y="35" width="4" height="12" fill="var(--s4)"/><rect x="39" y="35" width="4" height="12" fill="var(--s4)"/><circle cx="15" cy="13" r="6" fill="var(--s4)"/><path d="M6 30 Q7 21 15 21 Q23 21 24 30Z" fill="var(--s4)"/><circle cx="37" cy="13" r="6" fill="none" stroke="var(--s4)" stroke-width="3"/><path d="M28 30 Q29 21 37 21 Q45 21 46 30" fill="none" stroke="var(--s4)" stroke-width="3"/></svg>
+      </div>
+      <div>
+        <p class="num">Session 4</p>
+        <h2>Can You Hire Me?</h2>
+        <p class="time">4:35–4:50 · 15 min</p>
+      </div>
+      <span class="doc">Role-play cards</span>
+    </div>
+    <div class="s-body">
+      <div class="sguide">
+        <div class="part">
+          <h3>Role-play cards</h3>
+          <p class="hint">Person A is the interviewer. Person B is the applicant and uses Worksheet C. Then switch!</p>
+          <div class="cards2">
+            <div class="rcard">
+              <h4>🎤 Interviewer</h4>
+              <ol id="intCard"></ol>
+              <div class="reacts"><b>React while listening:</b> I see. / That's great. / Interesting! / Good answer.</div>
+            </div>
+            <div class="rcard app">
+              <h4>🙋 Applicant</h4>
+              <ul id="appCard"></ul>
+            </div>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn fill" type="button" data-timer="240" data-label="Interview round">Start 4-minute round</button>
+          </div>
+        </div>
+        <div class="part">
+          <h3>Interviewer feedback</h3>
+          <p class="hint">After the interview, tick and say one good thing out loud.</p>
+          <div class="fb" id="fb"></div>
+          <div class="bubble" style="margin-top:14px">One good thing about my partner: "I liked your <input class="blank" data-k="s4-liked" style="--w:180px">."</div>
+          <div class="hired-zone">
+            <button class="btn fill" type="button" id="hireBtn">You're hired!</button>
+            <div class="stamp" id="stamp" aria-live="polite">HIRED!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SESSION 5 ============ -->
+  <section class="session" id="s5" style="--c:var(--s5);--tint:var(--s5-t)">
+    <div class="s-head">
+      <div class="icon" aria-hidden="true">
+        <svg viewBox="0 0 52 52"><rect x="6" y="12" width="24" height="32" rx="4" transform="rotate(-12 18 28)" fill="var(--s3)"/><rect x="14" y="10" width="24" height="32" rx="4" fill="var(--s2)"/><rect x="22" y="8" width="24" height="32" rx="4" transform="rotate(10 34 24)" fill="var(--s1)"/><text x="34" y="30" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="16" fill="#fff" transform="rotate(10 34 24)">?</text></svg>
+      </div>
+      <div>
+        <p class="num">Session 5</p>
+        <h2>Free Talking Time</h2>
+        <p class="time">5:15–5:35 · 20 min</p>
+      </div>
+      <span class="doc">Conversation Cards</span>
+    </div>
+    <div class="s-body">
+      <div class="sguide">
+        <div class="part">
+          <h3>Conversation Cards</h3>
+          <p class="hint">Choose a level, draw a card, ask your partner. Then ask "Really? Why?"</p>
+          <div class="levels" id="levels">
+            <button class="lvl" type="button" data-l="1" style="--lc:var(--s3)" aria-pressed="true">Level 1 · Easy</button>
+            <button class="lvl" type="button" data-l="2" style="--lc:var(--s2)" aria-pressed="false">Level 2 · Medium</button>
+            <button class="lvl" type="button" data-l="3" style="--lc:var(--s1)" aria-pressed="false">Level 3 · Challenge</button>
+          </div>
+          <div class="deck">
+            <div class="cardstage">
+              <div class="ccard" id="ccard" style="--lc:var(--s3)">
+                <div class="face back">Let's talk!</div>
+                <div class="face front"><small id="cLevel">Level 1</small><span id="cText"></span></div>
+              </div>
+            </div>
+            <div class="deckctl">
+              <button class="btn fill" type="button" id="draw" style="--c:var(--s5)">Draw a card</button>
+              <button class="btn say" type="button" id="cardSay" aria-label="Listen to the card">🔊</button>
+              <span class="left" id="left"></span>
+              <button class="btn" type="button" data-timer="420" data-label="Free talking round">7-minute round</button>
+            </div>
+          </div>
+          <div class="allcards" id="allcards"></div>
+        </div>
+        <div class="part">
+          <h3>Helper phrases</h3>
+          <div class="helpers" id="helpers"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>English, Let's Get to Know Each Other! · Youth Growth Project One-Day Class · Instructors Lynn &amp; Bannu</footer>
+
+<div class="timer" id="timer" role="timer" aria-live="off">
+  <div><span class="tl" id="tLabel">Timer</span><span class="tv" id="tVal">0:00</span></div>
+  <button type="button" id="tPause" aria-label="Pause or resume">❚❚</button>
+  <button type="button" id="tBig" aria-label="Full screen timer">⤢</button>
+  <button type="button" id="tClose" aria-label="Close timer">✕</button>
+</div>
+
+<script>
+/* ===================== data ===================== */
+const UPGRADE = [
+  ["I am Jiyoung.","Hi, I'm Jiyoung. / Please call me Jenny.","Short form + friendly start"],
+  ["I am 28 years old.","I'm 28. / I'm in my late twenties.","Shorter is more natural"],
+  ["I am an office worker.","I work at a bank. / I work in marketing.","Say where or what field"],
+  ["I like movies.","I really like watching movies, especially comedies.","Add a detail"],
+  ["I have a hobby. It is running.","In my free time, I usually go running by the Han River.","Mix starters"],
+  ["I want to speak English.","I'm here because I want to speak English with confidence.","Add a reason"]
+];
+const INTRO = [
+  {lab:"Greeting + name", opts:["Hi, I'm ___.","Please call me ___."]},
+  {lab:"Age / where I live", opts:["I'm ___.","I live in ___."]},
+  {lab:"Job or study", opts:["I work at / in ___.","I'm a student at ___."]},
+  {lab:"Hobby + detail", opts:["In my free time, I usually ___, especially ___."]},
+  {lab:"Something I like or can do", opts:["I really like ___.","I can ___."]},
+  {lab:"Goal + closing", opts:["I want to ___."], end:"Nice to meet you!"}
+];
+const UPWORDS = [["really"],["usually"],["especially"],["a lot"],["these days","요즘"],["on weekends","주말에"]];
+const STRESS = [
+  ["Hi, I'm MINsu.","↘"],["I WORK at a BANK.","↘"],["In my FREE time, I usually go HIKing.","↘"],
+  ["I'm HERE because I want to SPEAK English.","↘"],["NICE to MEET you!","↗"]
+];
+const QUESTIONS = [
+  ["Tell me about yourself.","자기소개 해 주세요.","Sure! I'm ___. I work / I studied ___."],
+  ["What are your strengths?","당신의 강점은 무엇인가요?","I'm good at ___. / My strength is ___."],
+  ["What is your weakness?","당신의 약점은 무엇인가요?","Sometimes I ___, but I'm working on it."],
+  ["Why do you want this job?","왜 이 일을 하고 싶나요?","Because I'm interested in ___. / I want to ___."],
+  ["What did you do in your last job?","이전 직장에서 무엇을 했나요?","I worked as a ___. I was in charge of ___."],
+  ["Do you have any questions?","질문 있으신가요?","Yes. What does a typical day look like?"]
+];
+const EXPR = [
+  ["Starting","Thank you for having me. / Nice to meet you."],
+  ["Thinking time","That's a good question. Let me think…"],
+  ["Didn't understand","Sorry, could you say that again, please?"],
+  ["Giving an example","For example, ___."],
+  ["Ending","Thank you for your time. I hope to work with you."]
+];
+const STRENGTHS = [["hard-working","성실한"],["friendly","친절한"],["responsible","책임감 있는"],["creative","창의적인"],["a good team player","협동을 잘하는"],["organized","꼼꼼한"],["a fast learner","배우는 게 빠른"],["patient","인내심 있는"]];
+const S3 = [
+  {q:"Tell me about yourself.", short:["Hi, I'm ___. I'm a ___ (job). I like ___."],
+   long:["Sure! I'm ___. I live in ___.","I work / worked as ___ (or: I studied ___).","I'm interested in ___, so I'm excited about this job."]},
+  {q:"What are your strengths?", short:["I'm ___."], bank:["friendly","hard-working","kind","responsible","a fast learner"],
+   long:["I think my strength is that I'm ___.","Because I ___.","For example, ___."],
+   ex:"I think my strength is that I'm responsible. Because I always finish my work on time. For example, I never missed a deadline at my last job."},
+  {q:"Why do you want this job?", short:["I like ___. / I want to learn ___."], bank:["people","coffee","design","computers","new things"],
+   long:["I want this job because I'm interested in ___.","I also want to ___ (learn / grow / use my skills).","I think I can ___ for your company."],
+   ex:"I want this job because I love coffee and people. I also want to learn how to manage a café. I think I can make customers happy."},
+  {q:"What is your weakness?", bonus:true, short:["Sometimes I'm ___."], bank:["shy","nervous","slow","too busy"],
+   long:["Sometimes I ___, but I'm working on it.","These days, I ___."]}
+];
+const S3CHECK = ["I can say my answers out loud.","I used \"I'm\" at least once.","My long answers have \"because.\""];
+const INTCARD = [["Greeting","Hello, please have a seat. Nice to meet you."],["Q1","Tell me about yourself."],["Q2","What are your strengths?"],["Q3","Why do you want this job?"],["Q4 (if time)","What is your weakness?"],["Closing","Do you have any questions for me?"],["End","Thank you for coming. We'll contact you soon! (or: You're hired!)"]];
+const APPCARD = [["Start","Hello, nice to meet you. Thank you for having me."],["Need time","That's a good question. Let me think…"],["Didn't hear","Sorry, could you say that again, please?"],["Your question","What does a typical day look like? / When can I start?"],["End","Thank you for your time!"]];
+const FB = ["smiled and made eye contact","answered all questions","gave a reason (because…)","said \"Thank you\" at the end"];
+const CARDS = {
+  1:["What's your favorite food?","Do you like coffee or tea?","What's your favorite season?","Do you have any pets?","What time do you usually get up?","Do you like movies or dramas?","What's your hobby?","Do you like sports?"],
+  2:["What do you usually do on weekends?","What's the best trip you've ever taken?","What kind of music do you like?","What's a good restaurant near your home?","What did you do last weekend?","What's your favorite K-drama or movie? Why?","How do you relax after work?","Do you like cooking? What can you make?"],
+  3:["If you could live in any country, where would you live?","What is your dream job? Why?","What do you want to do in the next 5 years?","Who is someone you respect? Why?","What is the best advice you've ever received?","If you won ₩100 million, what would you do?","What's one thing you want to learn this year?","Why did you join this English class?"]
+};
+const HELPERS = [["Asking more","Really? Why? / Tell me more! / How about you?"],["Reacting","Me too! / Oh, I see. / That sounds fun! / Wow, nice!"],["Need time","Hmm, let me think…"],["Don't know the word","How do you say \"___\" in English?"],["Didn't understand","Sorry? One more time, please."]];
+
+
+/* ===================== helpers ===================== */
+const $ = (s,r=document)=>r.querySelector(s);
+const el = (t,a={},h="")=>{const e=document.createElement(t);for(const k in a){k==="class"?e.className=a[k]:e.setAttribute(k,a[k])}if(h)e.innerHTML=h;return e};
+const esc = s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+let store = {};
+try{ store = JSON.parse(localStorage.getItem("ylk-english-v1")||"{}") }catch(e){ store = {} }
+function save(){ try{ localStorage.setItem("ylk-english-v1",JSON.stringify(store)) }catch(e){} }
+
+/* speech */
+const SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
+let voice=null;
+function pickVoice(){ if(!("speechSynthesis" in window))return; const v=speechSynthesis.getVoices(); voice=v.find(x=>/en-US/i.test(x.lang)&&/Samantha|Google|Jenny|Aria/i.test(x.name))||v.find(x=>/^en/i.test(x.lang))||null }
+if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice }
+function speak(text,btn){
+  if(!("speechSynthesis" in window)){ return }
+  speechSynthesis.cancel();
+  const clean = text.replace(/[↗↘]/g,"").replace(/_{2,}/g,"blank").replace(/\//g,", or ").toLowerCase().replace(/(^|[.!?]\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase()).replace(/\bi\b/g,"I").replace(/\bi'm\b/g,"I'm");
+  const u = new SpeechSynthesisUtterance(clean); u.lang="en-US"; u.rate=.85; if(voice)u.voice=voice;
+  document.querySelectorAll(".say.on").forEach(b=>b.classList.remove("on"));
+  if(btn){ btn.classList.add("on"); u.onend=u.onerror=()=>btn.classList.remove("on") }
+  speechSynthesis.speak(u);
+}
+function sayBtn(text,label){ const b=el("button",{class:"btn say",type:"button","aria-label":"Listen: "+text},SPK); b.addEventListener("click",()=>speak(typeof text==="function"?text():text,b)); return b }
+
+/* template with blanks → html with inputs */
+let lastFocus=null;
+document.addEventListener("focusin",e=>{ if(e.target.classList&&e.target.classList.contains("blank")) lastFocus=e.target });
+function tpl(str,key){
+  let i=0;
+  return esc(str).replace(/_{3}/g,()=>`<input class="blank" data-k="${key}-${i++}" aria-label="blank ${i}">`).replace(/ \/ /g,' <span class="or">/</span> ');
+}
+function bindInputs(root){
+  root.querySelectorAll("input.blank").forEach(inp=>{
+    const k=inp.dataset.k; if(store[k])inp.value=store[k];
+    inp.addEventListener("input",()=>{ store[k]=inp.value; save(); updateIntro() });
+  });
+}
+function fillChip(word,scope){
+  let target = (lastFocus && scope.contains(lastFocus)) ? lastFocus : [...scope.querySelectorAll("input.blank")].find(i=>!i.value && i.offsetParent!==null);
+  if(!target) return;
+  target.value = target.value ? target.value.replace(/\s*$/," ")+word : word;
+  target.dispatchEvent(new Event("input")); target.focus();
+}
+
+/* ===================== Session 1 ===================== */
+const flips=$("#flips");
+UPGRADE.forEach(([b,a,r])=>{
+  const row=el("div",{style:"display:flex;gap:8px;align-items:center"});
+  const f=el("button",{class:"flip",type:"button","aria-expanded":"false"},
+    `<span><span class="before">${esc(b)}</span><span class="after">${esc(a)}</span><span class="rule">${esc(r)}</span></span><span class="tap">Tap</span>`);
+  f.addEventListener("click",()=>f.setAttribute("aria-expanded",f.getAttribute("aria-expanded")==="true"?"false":"true"));
+  row.append(f, sayBtn(a)); flips.append(row);
+});
+const introLines=$("#introLines");
+INTRO.forEach((ln,li)=>{
+  const item=el("li");
+  item.innerHTML=`<span class="lab">${ln.lab}</span><span class="tpl">${ln.opts.map((o,oi)=>tpl(o,`s1-${li}-${oi}`)).join(' <span class="or">/</span> ')}${ln.end?" "+ln.end:""}</span>`;
+  introLines.append(item);
+});
+bindInputs(introLines);
+const uw=$("#upgradeWords"), introBlock=introLines.closest("[data-block]");
+UPWORDS.forEach(([w,k])=>{ const c=el("button",{class:"chip",type:"button"},esc(w)+(k?`<span class="ko">${k}</span>`:"")); c.addEventListener("click",()=>fillChip(w,introBlock)); uw.append(c) });
+function introText(){
+  const out=[];
+  INTRO.forEach((ln,li)=>{
+    ln.opts.forEach((o,oi)=>{
+      const parts=o.split("___"); let ok=true; let s=parts[0];
+      for(let i=1;i<parts.length;i++){ const v=(store[`s1-${li}-${oi}-${i-1}`]||"").trim(); if(!v)ok=false; s+=v+parts[i] }
+      if(ok) out.push(s.replace("work at / in","work at"));
+    });
+  });
+  if(out.length) out.push("Nice to meet you!");
+  return out.join(" ");
+}
+function updateIntro(){ const p=$("#introOut"), t=introText(); if(t){p.textContent=t;p.classList.remove("empty")}else{p.textContent="Your sentences will appear here as you type.";p.classList.add("empty")} }
+updateIntro();
+$("#introSay").addEventListener("click",function(){ const t=introText(); if(t) speak(t) });
+const stress=$("#stress");
+STRESS.forEach(([s,arr])=>{
+  const d=el("div",{class:"st"});
+  d.innerHTML=`<span class="txt">${esc(s).replace(/([A-Z]{2,})/g,"<b>$1</b>")}</span><span class="arr" aria-label="${arr==="↗"?"rising":"falling"}">${arr}</span>`;
+  d.prepend(sayBtn(s)); stress.append(d);
+});
+
+/* ===================== Session 2 ===================== */
+const qg=$("#qgrid");
+QUESTIONS.forEach(([q,m,st],i)=>{
+  const c=el("div",{class:"qcard"});
+  c.innerHTML=`<div class="qtop"><span class="n">${i+1}</span><span class="q">${esc(q)}</span></div><span class="mean ko" hidden>${m}</span><div class="start"><b>Answer starter</b>${esc(st)}</div>`;
+  const row=el("div",{class:"row"});
+  const mb=el("button",{class:"btn",type:"button"},"뜻 meaning");
+  mb.addEventListener("click",()=>{ const s=c.querySelector(".mean"); s.hidden=!s.hidden });
+  row.append(sayBtn(q), mb, el("span",{class:"btn",style:"border:0;padding-left:0;color:var(--muted)"},"tap 🔊 to hear the question"));
+  row.lastChild.remove();
+  const sb=el("button",{class:"btn",type:"button"},"Hear the starter"); sb.addEventListener("click",()=>speak(st,null));
+  row.append(sb); c.append(row); qg.append(c);
+});
+const ex=$("#expr");
+EXPR.forEach(([k,v])=>{ const li=el("li",{},`<span class="k">${k}</span><span class="v">${esc(v)}</span>`); li.append(sayBtn(v)); ex.append(li) });
+const sg=$("#strengths"); let picked=(store.picks||[]).slice(0,2);
+function renderPicks(){
+  sg.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",picked.includes(c.dataset.w)?"true":"false"));
+  $("#pickCount").textContent=picked.length+" / 2 picked";
+  $("#strengthSay").textContent = picked.length ? `I'm ${picked.join(" and ")}!` : "I'm ___ and ___!";
+}
+STRENGTHS.forEach(([w,k])=>{
+  const c=el("button",{class:"chip",type:"button","data-w":w},`${esc(w)}<span class="ko">${k}</span>`);
+  c.addEventListener("click",()=>{ if(picked.includes(w)) picked=picked.filter(x=>x!==w); else { picked.push(w); if(picked.length>2) picked.shift() } store.picks=picked; save(); renderPicks() });
+  sg.append(c);
+});
+renderPicks();
+$("#strengthSay").before((()=>{const b=sayBtn(()=>picked.length?`I'm ${picked.join(" and ")}!`:"What are your strengths?"); b.style.marginTop="8px"; return b})());
+
+/* ===================== Session 3 ===================== */
+const s3=$("#s3q"), s3block=s3.closest("[data-block]");
+S3.forEach((q,qi)=>{
+  const box=el("div",{class:"qbox"});
+  const mode=store[`s3-mode-${qi}`]||"short";
+  box.innerHTML=`<h4>Q${qi+1}. ${esc(q.q)} ${q.bonus?'<span class="bonus">bonus</span>':""}</h4>`;
+  box.querySelector("h4").append(sayBtn(q.q));
+  const seg=el("div",{class:"seg",role:"group","aria-label":"Answer length"});
+  const bS=el("button",{type:"button","aria-pressed":String(mode==="short")},"Short answer");
+  const bL=el("button",{type:"button","aria-pressed":String(mode==="long")},"Long answer");
+  seg.append(bS,bL); box.append(seg);
+  const aS=el("div",{class:"ans"+(mode==="short"?" show":""),"data-label":"Short answer"});
+  aS.innerHTML=q.short.map((l,li)=>`<span class="tpl">${tpl(l,`s3-${qi}-s${li}`)}</span>`).join("");
+  if(q.bank){ const ch=el("div",{class:"chips"}); ch.append(el("span",{class:"hint",style:"margin:4px 6px 0 0"},"Word bank:")); q.bank.forEach(w=>{const c=el("button",{class:"chip",type:"button"},esc(w)); c.addEventListener("click",()=>fillChip(w,aS)); ch.append(c)}); aS.append(ch) }
+  const aL=el("div",{class:"ans"+(mode==="long"?" show":""),"data-label":"Long answer"});
+  aL.innerHTML=q.long.map((l,li)=>`<span class="tpl">${tpl(l,`s3-${qi}-l${li}`)}</span>`).join("");
+  if(q.ex) aL.append(el("div",{class:"example"},`<b>Example:</b> ${esc(q.ex)}`));
+  box.append(aS,aL);
+  const setMode=m=>{ bS.setAttribute("aria-pressed",m==="short");bL.setAttribute("aria-pressed",m==="long");aS.classList.toggle("show",m==="short");aL.classList.toggle("show",m==="long");store[`s3-mode-${qi}`]=m;save() };
+  bS.addEventListener("click",()=>setMode("short")); bL.addEventListener("click",()=>setMode("long"));
+  s3.append(box);
+});
+bindInputs(s3block);
+function checklist(ul,items,key,cls){
+  items.forEach((t,i)=>{ const k=`${key}-${i}`; const li=el("li"); const lab=el("label"); const cb=el("input",{type:"checkbox"}); cb.checked=!!store[k]; cb.addEventListener("change",()=>{store[k]=cb.checked;save()}); lab.append(cb,el("span",{},esc(t))); li.append(lab); ul.append(li) });
+}
+checklist($("#s3checks"),S3CHECK,"s3c");
+
+/* ===================== Session 4 ===================== */
+INTCARD.forEach(([k,v])=>{ const li=el("li",{},`<b>${k}:</b> ${esc(v)} `); $("#intCard").append(li) });
+APPCARD.forEach(([k,v])=>{ const li=el("li",{},`<b>${k}:</b> ${esc(v)}`); $("#appCard").append(li) });
+FB.forEach((t,i)=>{ const k="fb-"+i; const lab=el("label"); const cb=el("input",{type:"checkbox"}); cb.checked=!!store[k]; cb.addEventListener("change",()=>{store[k]=cb.checked;save()}); lab.append(cb,el("span",{},"My partner "+esc(t))); $("#fb").append(lab) });
+bindInputs($("#s4"));
+$("#hireBtn").addEventListener("click",()=>{ const s=$("#stamp"); s.classList.remove("go"); void s.offsetWidth; s.classList.add("go"); speak("You're hired! Congratulations!") });
+
+/* ===================== Session 5 ===================== */
+let level=1, used={1:[],2:[],3:[]};
+const lc={1:"var(--s3)",2:"var(--s2)",3:"var(--s1)"};
+function setLevel(l){ level=l; document.querySelectorAll(".lvl").forEach(b=>b.setAttribute("aria-pressed",b.dataset.l==l)); $("#ccard").style.setProperty("--lc",lc[l]); $("#ccard").classList.remove("flipped"); updLeft() }
+function updLeft(){ $("#left").textContent=`${CARDS[level].length-used[level].length} of ${CARDS[level].length} cards left`; }
+document.querySelectorAll(".lvl").forEach(b=>b.addEventListener("click",()=>setLevel(+b.dataset.l)));
+$("#draw").addEventListener("click",()=>{
+  const card=$("#ccard");
+  if(used[level].length>=CARDS[level].length) used[level]=[];
+  const pool=CARDS[level].map((_,i)=>i).filter(i=>!used[level].includes(i));
+  const pick=pool[Math.floor(Math.random()*pool.length)]; used[level].push(pick);
+  const show=()=>{ $("#cText").textContent=CARDS[level][pick]; $("#cLevel").textContent="Level "+level; card.classList.add("flipped"); updLeft() };
+  if(card.classList.contains("flipped")){ card.classList.remove("flipped"); setTimeout(show,matchMedia("(prefers-reduced-motion:reduce)").matches?0:420) } else show();
+});
+$("#cardSay").addEventListener("click",function(){ const t=$("#cText").textContent; if(t&&$("#ccard").classList.contains("flipped")) speak(t,this) });
+const all=$("#allcards"); [1,2,3].forEach(l=>CARDS[l].forEach(c=>{ const d=el("div",{style:`--lc:${lc[l]}`},esc(c)); all.append(d) }));
+HELPERS.forEach(([k,v])=>{ const d=el("div",{},`<b>${k}</b>${esc(v)}`); $("#helpers").append(d) });
+setLevel(1);
+
+/* ===================== timer ===================== */
+let tLeft=0,tInt=null,paused=false;
+const tEl=$("#timer");
+function fmt(s){ return Math.floor(s/60)+":"+String(s%60).padStart(2,"0") }
+function beep(){ try{ const C=new (window.AudioContext||window.webkitAudioContext)(); [0,.35,.7].forEach(d=>{ const o=C.createOscillator(),g=C.createGain(); o.type="sine"; o.frequency.value=880; g.gain.setValueAtTime(.0001,C.currentTime+d); g.gain.exponentialRampToValueAtTime(.4,C.currentTime+d+.02); g.gain.exponentialRampToValueAtTime(.0001,C.currentTime+d+.3); o.connect(g).connect(C.destination); o.start(C.currentTime+d); o.stop(C.currentTime+d+.32) }) }catch(e){} }
+function tick(){ if(paused)return; tLeft--; $("#tVal").textContent=fmt(Math.max(tLeft,0)); if(tLeft<=0){ clearInterval(tInt); tEl.classList.add("done"); $("#tVal").textContent="Time's up!"; beep() } }
+function startTimer(sec,label){ clearInterval(tInt); tLeft=sec; paused=false; tEl.classList.remove("done"); $("#tLabel").textContent=label; $("#tVal").textContent=fmt(sec); $("#tPause").textContent="❚❚"; tEl.classList.add("on"); tInt=setInterval(tick,1000) }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-timer]"); if(b) startTimer(+b.dataset.timer,b.dataset.label||"Timer") });
+$("#tPause").addEventListener("click",()=>{ paused=!paused; $("#tPause").textContent=paused?"▶":"❚❚" });
+$("#tBig").addEventListener("click",()=>tEl.classList.toggle("big"));
+$("#tClose").addEventListener("click",()=>{ clearInterval(tInt); tEl.classList.remove("on","big","done") });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") tEl.classList.remove("big") });
+</script>
+</body>
+</html>

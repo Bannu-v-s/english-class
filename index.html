@@ -294,10 +294,26 @@ footer{color:var(--muted);font-size:14px;text-align:center;padding:24px 0 60px}
   .preview{background:none;color:#000;border:2px solid #000}
   .step,.qcard,.qbox,.rcard{break-inside:avoid}
 }
+.sndhelp{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:40;max-width:560px;margin:0 auto;background:var(--ink);color:var(--page);border-radius:18px;padding:14px 44px 14px 16px;box-shadow:0 10px 30px rgba(0,0,0,.3);font-size:15px;line-height:1.45}
+.sndhelp[hidden]{display:none}
+.sndhelp b{display:block;font-size:16px;margin-bottom:4px}
+.sndhelp ol{margin:6px 0 0;padding-left:20px}
+.sndhelp li{margin:3px 0}
+.sndhelp .x{position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:inherit;cursor:pointer;font-weight:700}
+@media print{.sndhelp{display:none!important}}
 </style>
 </head>
 <body data-mode="student">
 
+<div class="sndhelp" id="sndHelp" hidden role="dialog" aria-label="Sound help">
+  <button class="x" type="button" aria-label="Close" onclick="this.parentNode.hidden=true">✕</button>
+  <b>🔊 Can't hear the voice? <span class="ko">소리가 안 들리나요?</span></b>
+  <ol>
+    <li><b style="display:inline;font-size:inherit">Open in Safari or Chrome.</b> <span class="ko">카카오톡 등 앱 안에서는 소리가 안 나요. 오른쪽 위 ⋯ → “다른 브라우저로 열기”</span></li>
+    <li><b style="display:inline;font-size:inherit">Turn the volume up.</b> <span class="ko">아이폰은 무음 모드(옆 스위치)를 꺼 주세요.</span></li>
+    <li><b style="display:inline;font-size:inherit">Android:</b> <span class="ko">설정 → 텍스트 음성 변환(TTS) → 영어 음성 데이터 설치</span></li>
+  </ol>
+</div>
 <header class="bar">
   <div class="wrap">
     <nav class="jump" aria-label="Sessions">
@@ -639,17 +655,34 @@ function save(){ try{ localStorage.setItem("ylk-english-v1",JSON.stringify(store
 /* speech */
 const SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
 let voice=null;
-function pickVoice(){ if(!("speechSynthesis" in window))return; const v=speechSynthesis.getVoices(); voice=v.find(x=>/en-US/i.test(x.lang)&&/Samantha|Google|Jenny|Aria/i.test(x.name))||v.find(x=>/^en/i.test(x.lang))||null }
-if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice }
+const UA=navigator.userAgent||"";
+const IN_APP=/KAKAOTALK|Instagram|FBAN|FBAV|Line\/|NAVER|DaumApps|everytimeApp|; wv\)/i.test(UA);
+const HAS_TTS=("speechSynthesis" in window)&&("SpeechSynthesisUtterance" in window);
+function pickVoice(){ if(!HAS_TTS)return; const v=speechSynthesis.getVoices(); if(!v.length)return;
+  const en=v.filter(x=>/^en([-_]|$)/i.test(x.lang));
+  voice=en.find(x=>/en[-_]US/i.test(x.lang)&&x.localService)||en.find(x=>/en[-_]US/i.test(x.lang))||en.find(x=>x.localService)||en[0]||null }
+if(HAS_TTS){ pickVoice(); if(speechSynthesis.addEventListener) speechSynthesis.addEventListener("voiceschanged",pickVoice); else speechSynthesis.onvoiceschanged=pickVoice }
+/* iPhone: unlock speech on the first touch */
+let ttsUnlocked=false;
+function unlockTTS(){ if(ttsUnlocked||!HAS_TTS)return; ttsUnlocked=true; try{ const u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u) }catch(e){} }
+document.addEventListener("touchend",unlockTTS,{once:true,passive:true});
+function showSoundHelp(){ const h=document.getElementById("sndHelp"); if(h) h.hidden=false }
+let ttsQueue=[];
 function speak(text,btn){
-  if(!("speechSynthesis" in window)){ return }
-  speechSynthesis.cancel();
+  if(!HAS_TTS){ showSoundHelp(); return }
   const clean = text.replace(/[↗↘]/g,"").replace(/_{2,}/g,"blank").replace(/\//g,", or ").toLowerCase().replace(/(^|[.!?]\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase()).replace(/\bi\b/g,"I").replace(/\bi'm\b/g,"I'm");
-  const u = new SpeechSynthesisUtterance(clean); u.lang="en-US"; u.rate=.85; if(voice)u.voice=voice;
+  const parts=(clean.match(/[^.!?]+[.!?]*/g)||[clean]).map(s=>s.trim()).filter(Boolean);
   document.querySelectorAll(".say.on").forEach(b=>b.classList.remove("on"));
-  if(btn){ btn.classList.add("on"); u.onend=u.onerror=()=>btn.classList.remove("on") }
-  speechSynthesis.speak(u);
+  const busy=speechSynthesis.speaking||speechSynthesis.pending;
+  if(busy) speechSynthesis.cancel();
+  ttsQueue=parts.map((p,i)=>{ const u=new SpeechSynthesisUtterance(p); u.lang=voice?voice.lang:"en-US"; u.rate=.85; if(voice)u.voice=voice;
+    if(btn&&i===parts.length-1) u.onend=u.onerror=()=>btn.classList.remove("on"); return u });
+  if(btn) btn.classList.add("on");
+  const go=()=>{ try{ speechSynthesis.resume() }catch(e){} ttsQueue.forEach(u=>speechSynthesis.speak(u)) };
+  if(busy) setTimeout(go,150); else go();
+  setTimeout(()=>{ if(!speechSynthesis.speaking&&!speechSynthesis.pending&&btn&&btn.classList.contains("on")){ btn.classList.remove("on"); showSoundHelp() } },3000);
 }
+if(IN_APP) setTimeout(showSoundHelp,600);
 function sayBtn(text,label){ const b=el("button",{class:"btn say",type:"button","aria-label":"Listen: "+text},SPK); b.addEventListener("click",()=>speak(typeof text==="function"?text():text,b)); return b }
 
 /* template with blanks → html with inputs */
